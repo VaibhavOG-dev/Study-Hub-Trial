@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StudyHub - Student Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span>📚</span>
+            <h2>StudyHub</h2>
+        </div>
+
+        <p class="tagline">Study smarter. Not harder.</p>
+
+        <nav>
+            <button onclick="showPage('dashboard')" class="nav-btn active">
+                🏠 Dashboard
+            </button>
+
+            <button onclick="showPage('tasks')" class="nav-btn">
+                ✅ Homework
+            </button>
+
+            <button onclick="showPage('notes')" class="nav-btn">
+                📝 Notes
+            </button>
+
+            <button onclick="showPage('planner')" class="nav-btn">
+                📅 Planner
+            </button>
+
+            <button onclick="showPage('timer')" class="nav-btn">
+                ⏱️ Study Timer
+            </button>
+
+            <button onclick="showPage('quiz')" class="nav-btn">
+                🧠 Quiz
+            </button>
+
+            <button onclick="showPage('calculator')" class="nav-btn">
+                🔢 Calculator
+            </button>
+
+            <button onclick="showPage('ai')" class="nav-btn">
+                🤖 AI Helper
+            </button>
+
+            <button onclick="showPage('teacher')" class="nav-btn">
+                👨‍🏫 Teacher Mode
+            </button>
+        </nav>
+
+        <button onclick="toggleTheme()" class="theme-btn">
+            🌙 Toggle Theme
+        </button>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+                <h1>Hey, Student! 👋</h1>
+                <p>Ready to get some studying done?</p>
+            </div>
+
+            <div class="streak">
+                🔥 <span id="streak">0</span> Day Streak
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="page active-page">
+
+            <div class="welcome-card">
+                <div>
+                    <h2>Welcome to StudyHub 🚀</h2>
+                    <p>
+                        Keep your homework, notes, exams and study time
+                        organized in one place.
+                    </p>
+                </div>
+
+                <div class="big-book">📚</div>
+            </div>
+
+
+            <div class="cards">
+
+                <div class="card">
+                    <span class="card-icon">📚</span>
+                    <h3>Subjects</h3>
+                    <strong>6</strong>
+                    <p>Active subjects</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">✅</span>
+                    <h3>Homework</h3>
+                    <strong id="taskCount">0</strong>
+                    <p>Tasks completed</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">📊</span>
+                    <h3>Progress</h3>
+                    <strong id="progressNumber">0%</strong>
+                    <p>Overall homework</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">🔥</span>
+                    <h3>Study Streak</h3>
+                    <strong id="dashboardStreak">0</strong>
+                    <p>Days</p>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <div class="panel">
+                    <h2>📚 My Subjects</h2>
+
+                    <div class="subjects">
+
+                        <div class="subject maths">
+                            <span>📐</span>
+                            <div>
+                                <b>Mathematics</b>
+                                <small>Algebra • Geometry</small>
+                            </div>
+                        </div>
+
+                        <div class="subject science">
+                            <span>🔬</span>
+                            <div>
+                                <b>Science</b>
+                                <small>Physics • Biology</small>
+                            </div>
+                        </div>
+
+                        <div class="subject english">
+                            <span>📖</span>
+                            <div>
+                                <b>English</b>
+                                <small>Grammar • Literature</small>
+                            </div>
+                        </div>
+
+                        <div class="subject sst">
+                            <span>🌍</span>
+                            <div>
+                                <b>Social Science</b>
+                                <small>History • Geography</small>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="panel">
+                    <h2>🎯 Exam Countdown</h2>
+
+                    <label>Enter your exam date:</label>
+
+                    <input type="date" id="examDate">
+
+                    <div id="countdown" class="countdown">
+                        Select a date
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TASKS -->
+        <section id="tasks" class="page">
+
+            <div class="page-title">
+                <h2>✅ Homework & Tasks</h2>
+                <p>Never forget your homework again.</p>
+            </div>
+
+            <div class="input-row">
+
+                <input
+                    type="text"
+                    id="taskInput"
+                    placeholder="Enter homework..."
+                >
+
+                <select id="taskSubject">
+                    <option>Maths</option>
+                    <option>Science</option>
+                    <option>English</option>
+                    <option>SST</option>
+                    <option>Hindi</option>
+                    <option>Sanskrit</option>
+                </select>
+
+                <button onclick="addTask()" class="primary-btn">
+                    + Add
+                </button>
+
+            </div>
+
+            <div id="taskList" class="task-list"></div>
+
+        </section>
+
+
+        <!-- NOTES -->
+        <section id="notes" class="page">
+
+            <div class="page-title">
+                <h2>📝 My Notes</h2>
+                <p>Save important things for later.</p>
+            </div>
+
+            <input
+                type="text"
+                id="noteTitle"
+                placeholder="Note title..."
+            >
+
+            <textarea
+                id="noteText"
+                placeholder="Write your notes here..."
+            ></textarea>
+
+            <button onclick="addNote()" class="primary-btn">
+                💾 Save Note
+            </button>
+
+            <div id="notesList" class="notes-grid"></div>
+
+        </section>
+
+
+        <!-- PLANNER -->
+        <section id="planner" class="page">
+
+            <div class="page-title">
+                <h2>📅 Weekly Study Planner</h2>
+                <p>Plan your week and stay consistent.</p>
+            </div>
+
+            <div class="planner">
+
+                <div>
+                    <b>Monday</b>
+                    <textarea placeholder="What will you study?"></textarea>
+                </div>
+
+                <div>
+                    <b>Tuesday</b>
+                    <textarea placeholder="What will you study?"></textarea>
+                </div>
+
+                <div>
+                    <b>Wednesday</b>
+                    <textarea placeholder="What will you study?"></textarea>
+                </div>
+
+                <div>
+                    <b>Thursday</b>
+                    <textarea placeholder="What will you study?"></textarea>
+                </div>
+
+                <div>
+                    <b>Friday</b>
+                    <textarea placeholder="What will you study?"></textarea>
+                </div>
+
+                <div>
+                    <b>Saturday</b>
+                    <textarea placeholder="What will you study?"></textarea>
+                </div>
+
+                <div>
+                    <b>Sunday</b>
+                    <textarea placeholder="What will you study?"></textarea>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TIMER -->
+        <section id="timer" class="page">
+
+            <div class="page-title">
+                <h2>⏱️ Pomodoro Study Timer</h2>
+                <p>Focus for 25 minutes, then take a break.</p>
+            </div>
+
+            <div class="timer-box">
+
+                <div id="timerDisplay">25:00</div>
+
+                <p id="timerStatus">Ready to study?</p>
+
+                <div>
+                    <button onclick="startTimer()" class="primary-btn">
+                        ▶ Start
+                    </button>
+
+                    <button onclick="pauseTimer()" class="secondary-btn">
+                        ⏸ Pause
+                    </button>
+
+                    <button onclick="resetTimer()" class="secondary-btn">
+                        🔄 Reset
+                    </button>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- QUIZ -->
+        <section id="quiz" class="page">
+
+            <div class="page-title">
+                <h2>🧠 Quick Quiz</h2>
+                <p>Test your knowledge.</p>
+            </div>
+
+            <div class="quiz-box">
+
+                <h3 id="question">
+                    Click Start Quiz!
+                </h3>
+
+                <div id="answers"></div>
+
+                <button onclick="startQuiz()" class="primary-btn">
+                    🎯 Start Quiz
+                </button>
+
+                <p id="quizResult"></p>
+
+            </div>
+
+        </section>
+
+
+        <!-- CALCULATOR -->
+        <section id="calculator" class="page">
+
+            <div class="page-title">
+                <h2>🔢 Percentage Calculator</h2>
+                <p>Calculate your marks easily.</p>
+            </div>
+
+            <div class="calculator-box">
+
+                <input
+                    type="number"
+                    id="obtained"
+                    placeholder="Marks obtained"
+                >
+
+                <input
+                    type="number"
+                    id="total"
+                    placeholder="Total marks"
+                >
+
+                <button onclick="calculatePercentage()" class="primary-btn">
+                    Calculate
+                </button>
+
+                <div id="percentageResult" class="result">
+                    Your percentage will appear here.
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- AI HELPER -->
+        <section id="ai" class="page">
+
+            <div class="page-title">
+                <h2>🤖 AI Study Helper</h2>
+                <p>Your future AI-powered study assistant.</p>
+            </div>
+
+            <div class="ai-box">
+
+                <div class="ai-message">
+                    🤖 <b>StudyBot:</b>
+                    Hi! Ask me a question about your studies.
+                </div>
+
+                <textarea
+                    id="aiQuestion"
+                    placeholder="Example: Explain photosynthesis..."
+                ></textarea>
+
+                <button onclick="askAI()" class="primary-btn">
+                    Ask StudyBot
+                </button>
+
+                <div id="aiAnswer" class="ai-answer">
+                    AI answers will appear here.
+                </div>
+
+                <small>
+                    This is a demo UI. A real AI API can be connected later.
+                </small>
+
+            </div>
+
+        </section>
+
+
+        <!-- TEACHER -->
+        <section id="teacher" class="page">
+
+            <div class="page-title">
+                <h2>👨‍🏫 Teacher Mode</h2>
+                <p>Create practice material for students.</p>
+            </div>
+
+            <div class="teacher-grid">
+
+                <div class="teacher-card">
+                    <span>📝</span>
+                    <h3>Generate Questions</h3>
+                    <p>Create practice questions for a subject.</p>
+
+                    <button onclick="teacherMessage()">
+                        Create Questions
+                    </button>
+                </div>
+
+                <div class="teacher-card">
+                    <span>📋</span>
+                    <h3>Make Mock Test</h3>
+                    <p>Create a simple test for students.</p>
+
+                    <button onclick="teacherMessage()">
+                        Create Test
+                    </button>
+                </div>
+
+                <div class="teacher-card">
+                    <span>📊</span>
+                    <h3>Student Progress</h3>
+                    <p>Track homework and study progress.</p>
+
+                    <button onclick="teacherMessage()">
+                        View Progress
+                    </button>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
